@@ -4,7 +4,7 @@ Your modified client should:
 
 Not persist tokens in local storage. Refreshing the app should require the user to provide their login credentials again. DONE
 
-Refresh the JWT tokens more regularly. The token expiry on the server-side should be set to 15 minutes, and every ten minutes the client should attempt to refresh the token.
+Refresh the JWT tokens more regularly. The token expiry on the server-side should be set to 15 minutes, and every ten minutes the client should attempt to refresh the token. DONE
 
 Automatically log the user out after five minutes of inactivity.
 
