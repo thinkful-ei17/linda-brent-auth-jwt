@@ -1,8 +1,34 @@
 import React from 'react';
+import { clearAuth } from '../actions/auth';
 
-export default class ActivityMonitor extends React.Component{
+/*on app load ----> start timer countdown. when user clicks, reset timer to 5 minutes. when time hits 0 ---->logOut*/
+
+export default class ActivityMonitor extends React.Component{ 
+  logOut() {
+    this.props.dispatch(clearAuth());
+  }
+
+  startTimer() {
+      let timeoutID;
+      timeoutID = window.setTimeout(this.logOut(), 300000); 
+  }
+
+  resetTimer(e) {
+      window.clearTimeout(timeoutID);
+  console.log('timer reset')
+  }
+  
   componentDidMount() {
-    window.addEventListener('click', () => console.log('Foo'));
+
+    window.addEventListener("mousemove", this.resetTimer, false);
+    window.addEventListener("mousedown", this.resetTimer, false);
+    window.addEventListener("keypress", this.resetTimer, false);
+    window.addEventListener("DOMMouseScroll", this.resetTimer, false);
+    window.addEventListener("mousewheel", this.resetTimer, false);
+    window.addEventListener("touchmove", this.resetTimer, false);
+    window.addEventListener("MSPointerMove", this.resetTimer, false);
+     
+    this.startTimer();
   }
 
   componentWillUnmount() {
@@ -39,4 +65,28 @@ export default class ActivityMonitor extends React.Component{
 
 // function whenUserIdle(){
 //   //...
+// }
+
+// var timeoutID;
+ 
+// function setup() {
+//     this.addEventListener("mousemove", resetTimer, false);
+//     this.addEventListener("mousedown", resetTimer, false);
+//     this.addEventListener("keypress", resetTimer, false);
+//     this.addEventListener("DOMMouseScroll", resetTimer, false);
+//     this.addEventListener("mousewheel", resetTimer, false);
+//     this.addEventListener("touchmove", resetTimer, false);
+//     this.addEventListener("MSPointerMove", resetTimer, false);
+ 
+//     startTimer();
+// }
+// setup();
+ 
+// function startTimer() {
+//     timeoutID = window.setTimeout(goInactive, 30000);
+// }
+ 
+// function resetTimer(e) {
+//     window.clearTimeout(timeoutID);
+//  console.log('timer reset')
 // }
