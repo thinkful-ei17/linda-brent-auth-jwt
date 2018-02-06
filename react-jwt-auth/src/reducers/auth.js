@@ -4,6 +4,7 @@ import {
   AUTH_REQUEST,
   AUTH_SUCCESS,
   AUTH_ERROR,
+  STAY_ACTIVE,
 } from '../actions/auth';
 
 const initialState = {
@@ -11,6 +12,7 @@ const initialState = {
   currentUser: null,
   loading: false,
   error: null,
+  idleTime: 0
 };
 
 export default function reducer(state = initialState, action) {
@@ -37,6 +39,10 @@ export default function reducer(state = initialState, action) {
     return Object.assign({}, state, {
       loading: false,
       error: action.error,
+    });
+  } else if (action.type === STAY_ACTIVE) {
+    return Object.assign({}, state, {
+      idleTime: action.idleTime,
     });
   }
   return state;

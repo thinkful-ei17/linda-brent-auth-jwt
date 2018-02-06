@@ -32,6 +32,11 @@ export const authError = error => ({
   error,
 });
 
+export const STAY_ACTIVE = 'STAY_ACTIVE';
+export const stayActive = () => ({
+  type: STAY_ACTIVE,
+})
+
 // Stores the auth token in state and localStorage, and decodes and stores
 // the user data stored in the token
 const storeAuthInfo = (authToken, dispatch) => {

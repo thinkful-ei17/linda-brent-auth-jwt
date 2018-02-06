@@ -53,5 +53,9 @@ export class ActivityMonitor extends React.Component {
   }
 }
 
-export default connect()(ActivityMonitor);
+const mapStateToProps = state => ({
+  idleTime: state.idleTime,
+});
+
+export default connect(mapStateToProps)(ActivityMonitor);
 
