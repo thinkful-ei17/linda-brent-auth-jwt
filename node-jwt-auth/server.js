@@ -46,8 +46,8 @@ const jwtAuth = passport.authenticate('jwt', { session: false });
 
 // A protected endpoint which needs a valid JWT to access it
 app.get('/api/protected', jwtAuth, (req, res) => res.json({
-    data: 'rosebud'
-  }));
+  data: 'rosebud',
+}));
 
 app.use('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 
@@ -76,14 +76,14 @@ function runServer() {
 
 function closeServer() {
   return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
-      console.log('Closing server');
-      server.close(err => {
-        if (err) {
-          return reject(err);
-        }
-        resolve();
-      });
-    }));
+    console.log('Closing server');
+    server.close((err) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve();
+    });
+  }));
 }
 
 if (require.main === module) {

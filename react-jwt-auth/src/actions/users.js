@@ -17,7 +17,7 @@ export const registerUser = user => dispatch => fetch(`${API_BASE_URL}/users`, {
     if (reason === 'ValidationError') {
       // Convert ValidationErrors into SubmissionErrors for Redux Form
       return Promise.reject(new SubmissionError({
-          [location]: message,
-        }),);
+        [location]: message,
+      }));
     }
   });

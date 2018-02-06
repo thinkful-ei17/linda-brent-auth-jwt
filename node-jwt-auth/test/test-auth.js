@@ -1,4 +1,5 @@
-'use strict';
+
+
 global.DATABASE_URL = 'mongodb://localhost/jwt-auth-demo-test';
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -15,7 +16,7 @@ const expect = chai.expect;
 // see: https://github.com/chaijs/chai-http
 chai.use(chaiHttp);
 
-describe('Auth endpoints', function () {
+describe('Auth endpoints', () => {
   const username = 'exampleUser';
   const password = 'examplePass';
   const firstName = 'Example';
@@ -29,7 +30,7 @@ describe('Auth endpoints', function () {
     return closeServer();
   });
 
-  beforeEach(function() {
+  beforeEach(function () {
     return User.hashPassword(password).then(password =>
       User.create({
         username,
@@ -65,7 +66,7 @@ describe('Auth endpoints', function () {
       return chai
         .request(app)
         .post('/api/auth/login')
-        .send({ username: 'wrongUsername', password })        
+        .send({ username: 'wrongUsername', password })
         .then(() =>
           expect.fail(null, null, 'Request should not succeed')
         )
