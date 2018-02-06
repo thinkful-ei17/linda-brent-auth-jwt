@@ -1,0 +1,8 @@
+The JWT client you have seen is fine for most web apps where security isn't critical. But when security is paramount (for example, if you are dealing with a user's financial information), you will probably want to make some tweaks to how the client operates. In this exercise you will be challenged to create a modified version of the client which is slightly less user-friendly, but adds some extra security.
+
+Your modified client should:
+
+Not persist tokens in local storage. Refreshing the app should require the user to provide their login credentials again.
+Refresh the JWT tokens more regularly. The token expiry on the server-side should be set to 15 minutes, and every ten minutes the client should attempt to refresh the token.
+Automatically log the user out after five minutes of inactivity.
+Show a dialog box one minute before the user is automatically logged out, allowing them to click a button to indicate that the are still using the application.

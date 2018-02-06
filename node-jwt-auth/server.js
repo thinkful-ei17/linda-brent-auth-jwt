@@ -1,4 +1,5 @@
-'use strict';
+
+
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
@@ -25,7 +26,7 @@ const app = express();
 app.use(morgan('common'));
 
 // CORS
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type,Authorization');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
@@ -44,15 +45,11 @@ app.use('/api/auth/', authRouter);
 const jwtAuth = passport.authenticate('jwt', { session: false });
 
 // A protected endpoint which needs a valid JWT to access it
-app.get('/api/protected', jwtAuth, (req, res) => {
-  return res.json({
+app.get('/api/protected', jwtAuth, (req, res) => res.json({
     data: 'rosebud'
-  });
-});
+  }));
 
-app.use('*', (req, res) => {
-  return res.status(404).json({ message: 'Not Found' });
-});
+app.use('*', (req, res) => res.status(404).json({ message: 'Not Found' }));
 
 // Referenced by both runServer and closeServer. closeServer
 // assumes runServer has run and set `server` to a server object
@@ -60,7 +57,7 @@ let server;
 
 function runServer() {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, { useMongoClient: true }, err => {
+    mongoose.connect(DATABASE_URL, { useMongoClient: true }, (err) => {
       if (err) {
         return reject(err);
       }
@@ -69,7 +66,7 @@ function runServer() {
           console.log(`Your app is listening on port ${PORT}`);
           resolve();
         })
-        .on('error', err => {
+        .on('error', (err) => {
           mongoose.disconnect();
           reject(err);
         });
@@ -78,8 +75,7 @@ function runServer() {
 }
 
 function closeServer() {
-  return mongoose.disconnect().then(() => {
-    return new Promise((resolve, reject) => {
+  return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
       console.log('Closing server');
       server.close(err => {
         if (err) {
@@ -87,8 +83,7 @@ function closeServer() {
         }
         resolve();
       });
-    });
-  });
+    }));
 }
 
 if (require.main === module) {
