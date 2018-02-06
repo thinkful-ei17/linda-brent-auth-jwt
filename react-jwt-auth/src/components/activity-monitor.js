@@ -7,14 +7,19 @@ reset timer to 5 minutes. when time hits 0 ---->logOut */
 
 export class ActivityMonitor extends React.Component {
   componentDidMount() {
-    window.addEventListener('mousemove', this.resetTimer, false);
-    window.addEventListener('mousedown', this.resetTimer, false);
-    window.addEventListener('keypress', this.resetTimer, false);
-    window.addEventListener('DOMMouseScroll', this.resetTimer, false);
-    window.addEventListener('mousewheel', this.resetTimer, false);
-    window.addEventListener('touchmove', this.resetTimer, false);
-    window.addEventListener('MSPointerMove', this.resetTimer, false);
-    this.timeoutId = window.setTimeout(this.logOut(), 30000);
+    console.log(this.props);
+    this.timeoutId = window.setTimeout(this.logOut.bind(this), 6000);
+    window.addEventListener('mousemove', this.resetTimer.bind(this), false);
+    window.addEventListener('mousedown', this.resetTimer.bind(this), false);
+    window.addEventListener('keypress', this.resetTimer.bind(this), false);
+    window.addEventListener('DOMMouseScroll', this.resetTimer.bind(this), false);
+    window.addEventListener('mousewheel', this.resetTimer.bind(this), false);
+    window.addEventListener('touchmove', this.resetTimer.bind(this), false);
+    window.addEventListener('MSPointerMove', this.resetTimer.bind(this), false);
+  }
+
+  componentWillUnmount() {
+    window.clearTimeout(this.timeoutId);
   }
 
   logOut() {
@@ -22,8 +27,8 @@ export class ActivityMonitor extends React.Component {
   }
 
   resetTimer() {
-    window.clearTimeout(this.timeoutID);
-    console.log('timer reset');
+    window.clearTimeout(this.timeoutId);
+    this.timeoutId = window.setTimeout(this.logOut.bind(this), 6000);
   }
   render() {
     return (
